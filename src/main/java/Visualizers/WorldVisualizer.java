@@ -57,23 +57,6 @@ public class WorldVisualizer {
     frame.add(quitButton);
 
   }
-
-  ActionListener timerListener = new ActionListener() {
-    // Define an action listener to respond to events
-    // from the timer.
-    public void actionPerformed(ActionEvent event) {
-      if(world.animalsExtinct()){
-        textArea.setText(world.toString());
-        pauseContinueButton.setVisible(false);
-        timer.stop();
-      }
-      textArea.setText(world.toString());
-      frame.add(textArea);
-      SwingUtilities.updateComponentTreeUI(frame);
-      world.passTheDay();
-    }
-  };
-
   public void startVisualization(){
     if (timer == null) {
       timer = new Timer(75, timerListener);
@@ -89,4 +72,19 @@ public class WorldVisualizer {
       pauseContinueButton.setText("Continue");
     }
   }
+
+  ActionListener timerListener = new ActionListener() {
+    public void actionPerformed(ActionEvent event) {
+      textArea.setText(world.toString());
+      if(world.animalsExtinct()){
+        pauseContinueButton.setVisible(false);
+        timer.stop();
+      }
+      frame.add(textArea);
+      SwingUtilities.updateComponentTreeUI(frame);
+      world.passTheDay();
+    }
+  };
+
+
 }
